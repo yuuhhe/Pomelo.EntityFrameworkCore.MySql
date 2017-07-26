@@ -51,7 +51,7 @@ namespace Microsoft.EntityFrameworkCore.Query.Internal
                 {
 	                if (_transaction != null)
 	                {
-		                await _transaction.CommitAsync(cancellationToken).ConfigureAwait(false);
+		                _transaction.Commit();
 	                }
                     return false;
                 }

@@ -1,4 +1,4 @@
-// Copyright (c) Pomelo Foundation. All rights reserved.
+﻿// Copyright (c) Pomelo Foundation. All rights reserved.
 // Licensed under the MIT. See LICENSE in the project root for license information.
 
 using System;
@@ -20,7 +20,7 @@ namespace Microsoft.EntityFrameworkCore.Storage.Internal
     public class MySqlRelationalConnection : IRelationalConnection
     {
         private readonly string _connectionString;
-        private MySqlConnection _connection;
+        private DbConnection _connection;
         private readonly bool _connectionOwned;
         private int _openedCount;
         private bool _openedInternally;
@@ -45,7 +45,7 @@ namespace Microsoft.EntityFrameworkCore.Storage.Internal
                 {
                     throw new InvalidOperationException(RelationalStrings.ConnectionAndConnectionString);
                 }
-                _connection = relationalOptions.Connection as MySqlConnection;
+                _connection = relationalOptions.Connection;
                 _connectionOwned = false;
             }
             else if (!string.IsNullOrWhiteSpace(relationalOptions.ConnectionString))
@@ -62,8 +62,6 @@ namespace Microsoft.EntityFrameworkCore.Storage.Internal
 	    protected virtual ILogger Logger => _logger;
 
 	    public DbConnection DbConnection => _connection ?? (_connection = new MySqlConnection(ConnectionString));
-
-	    private MySqlConnection MySqlDbConnection => DbConnection as MySqlConnection;
 
         public MySqlRelationalConnection CreateMasterConnection()
         {
@@ -138,7 +136,7 @@ namespace Microsoft.EntityFrameworkCore.Storage.Internal
 		        il => RelationalStrings.RelationalLoggerBeginningTransaction(il.ToString("G")));
 
 	        // ReSharper disable once AssignNullToNotNullAttribute
-	        CurrentTransaction = new MySqlRelationalTransaction(this, MySqlDbConnection.BeginTransaction(isolationLevel) as MySqlTransaction, _logger, true);
+	        CurrentTransaction = new MySqlRelationalTransaction(this, DbConnection.BeginTransaction(isolationLevel), _logger, true);
 	        return CurrentTransaction;
         }
 
@@ -153,7 +151,7 @@ namespace Microsoft.EntityFrameworkCore.Storage.Internal
 			    isolationLevel,
 			    il => RelationalStrings.RelationalLoggerBeginningTransaction(il.ToString("G")));
 
-		    CurrentTransaction = new MySqlRelationalTransaction(this, await MySqlDbConnection.BeginTransactionAsync(isolationLevel, cancellationToken).ConfigureAwait(false), _logger, true);
+		    CurrentTransaction = new MySqlRelationalTransaction(this, DbConnection.BeginTransaction(isolationLevel), _logger, true);
 		    return CurrentTransaction;
 	    }
 

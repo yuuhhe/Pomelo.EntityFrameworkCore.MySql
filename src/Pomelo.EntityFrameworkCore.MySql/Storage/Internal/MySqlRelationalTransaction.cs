@@ -15,7 +15,7 @@ namespace Microsoft.EntityFrameworkCore.Storage.Internal
     public class MySqlRelationalTransaction : IDbContextTransaction, IInfrastructure<DbTransaction>
     {
         private readonly IRelationalConnection _relationalConnection;
-        private readonly MySqlTransaction _dbTransaction;
+        private readonly DbTransaction _dbTransaction;
 	    private readonly ILogger _logger;
 	    private readonly bool _transactionOwned;
 
@@ -23,7 +23,7 @@ namespace Microsoft.EntityFrameworkCore.Storage.Internal
 
         public MySqlRelationalTransaction(
             [NotNull] IRelationalConnection connection,
-            [NotNull] MySqlTransaction transaction,
+            [NotNull] DbTransaction transaction,
             [NotNull] ILogger logger,
             bool transactionOwned)
         {
@@ -52,15 +52,15 @@ namespace Microsoft.EntityFrameworkCore.Storage.Internal
             ClearTransaction();
         }
 
-	    public async Task CommitAsync(CancellationToken cancellationToken = default(CancellationToken))
-	    {
-		    _logger.LogDebug(
-			    RelationalEventId.CommittingTransaction,
-			    () => RelationalStrings.RelationalLoggerCommittingTransaction);
+	    //public async Task CommitAsync(CancellationToken cancellationToken = default(CancellationToken))
+	    //{
+		   // _logger.LogDebug(
+			  //  RelationalEventId.CommittingTransaction,
+			  //  () => RelationalStrings.RelationalLoggerCommittingTransaction);
 
-		    await _dbTransaction.CommitAsync(cancellationToken).ConfigureAwait(false);
-		    ClearTransaction();
-	    }
+		   // await _dbTransaction.CommitAsync(cancellationToken).ConfigureAwait(false);
+		   // ClearTransaction();
+	    //}
 
         public void Rollback()
         {
@@ -72,15 +72,15 @@ namespace Microsoft.EntityFrameworkCore.Storage.Internal
             ClearTransaction();
         }
 
-	    public async Task RollbackAsync(CancellationToken cancellationToken = default(CancellationToken))
-	    {
-		    _logger.LogDebug(
-			    RelationalEventId.RollingbackTransaction,
-			    () => RelationalStrings.RelationalLoggerRollingbackTransaction);
+	    //public async Task RollbackAsync(CancellationToken cancellationToken = default(CancellationToken))
+	    //{
+		   // _logger.LogDebug(
+			  //  RelationalEventId.RollingbackTransaction,
+			  //  () => RelationalStrings.RelationalLoggerRollingbackTransaction);
 
-		    await _dbTransaction.RollbackAsync(cancellationToken).ConfigureAwait(false);
-		    ClearTransaction();
-	    }
+		   // await _dbTransaction.RollbackAsync(cancellationToken).ConfigureAwait(false);
+		   // ClearTransaction();
+	    //}
 
 	    public void Dispose()
         {
