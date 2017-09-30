@@ -23,7 +23,7 @@ To add a `NuGet.config` file in your solution root, then you can use the unstabl
 
 Here is a console application sample for accessing a MySQL database using Entity Framework:
 
-① We recommand you to set `utf8` as your MySQL database default charset. The following statement will check your DB charset.
+① We recommand you to set `utf8mb4` as your MySQL database default charset. The following statement will check your DB charset.
 ```sql
 show variables like 'character_set_database';
 ```
@@ -38,12 +38,12 @@ show variables like 'character_set_database';
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.0.0-preview2-*" />
-    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="2.0.0-preview2-*" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.0.0-rtm-*" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="2.0.0-rtm-*" />
   </ItemGroup>
 
   <ItemGroup>
-    <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.0-preview2-*" />
+    <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.0" />
   </ItemGroup>
   
 </Project>
@@ -157,12 +157,14 @@ By viewing the following full project which is a single-user blog system and bas
 
 Milestone | Release week
 ----------|-------------
-2.0.0-preview2-unstable | July 1st 2017
-2.0.0-preview2-stable     | July 4th 2017
-2.0.0-preview2-final     | July 2017
-2.0.0-rtm     | TBD
+2.0.0-preview2-final     | July 26th 2017
+2.0.0 | September 4th, 2017
 
-### 2.0.0-preview2-unstable
+### 2.0.0-rtm
+
+Support full text and spatial indexes.
+
+### 2.0.0-preview2
 
 Compatible with Entity Framework Core 2.0.0-preview2-final.
 
