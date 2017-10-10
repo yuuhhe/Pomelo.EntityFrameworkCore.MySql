@@ -80,7 +80,7 @@ namespace Microsoft.EntityFrameworkCore.Update.Internal
 
                 if (startedTransaction != null)
                 {
-                    startedTransaction.Commit();
+                  await startedTransaction.CommitAsync(cancellationToken).ConfigureAwait(false);
                 }
                 startedTransaction?.Dispose();
             }

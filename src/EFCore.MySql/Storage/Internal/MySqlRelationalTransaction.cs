@@ -46,7 +46,8 @@ namespace Microsoft.EntityFrameworkCore.Storage.Internal
 
             try
             {
-                await (_dbTransaction as MySqlTransaction).CommitAsync(cancellationToken).ConfigureAwait(false);
+                //await (_dbTransaction as MySqlTransaction).CommitAsync(cancellationToken).ConfigureAwait(false);
+                _dbTransaction.Commit();
 
                 _logger.TransactionCommitted(
                     _relationalConnection,
@@ -81,7 +82,8 @@ namespace Microsoft.EntityFrameworkCore.Storage.Internal
 
             try
             {
-                await (_dbTransaction as MySqlTransaction).RollbackAsync(cancellationToken).ConfigureAwait(false);
+                //await (_dbTransaction as MySqlTransaction).RollbackAsync(cancellationToken).ConfigureAwait(false);
+                _dbTransaction.Rollback();
 
                 _logger.TransactionRolledBack(
                     _relationalConnection,

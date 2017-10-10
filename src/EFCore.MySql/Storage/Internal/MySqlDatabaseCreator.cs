@@ -215,6 +215,7 @@ namespace Microsoft.EntityFrameworkCore.Storage.Internal
 
         // Clear connection pool for the database connection since after the 'create database' call, a previously
         // invalid connection may now be valid.
-        private void ClearPool() => MySqlConnection.ClearPool(_connection.DbConnection as MySqlConnection);
+        private void ClearPool() => MySqlConnection.ClearAllPools();
+        //private void ClearPool() => MySqlConnection.ClearPool(_connection.DbConnection as MySqlConnection);
     }
 }
